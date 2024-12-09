@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/white"
+        android:background="@android:color/black"
+        android:layout_centerInParent="true"
+        android:text="1P MODE" />
+
+
+    <!-- 위 버튼 (Up) -->
+    <Button
+        android:id="@+id/btn_up"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="200dp"
+        android:text="↑" />
+
+    <!-- 왼쪽, 아래, 오른쪽 버튼을 포함한 LinearLayout -->
+    <LinearLayout
+        android:layout_marginStart="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/btn_up">
+
+        <Button
+            android:id="@+id/btn_left"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="←"/>
+
+        <Button
+            android:id="@+id/btn_down"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="↓" />
+
+        <Button
+            android:id="@+id/btn_right"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="→" />
+    </LinearLayout>
+
+    <!-- 공격 버튼 (Attack) -->
+    <Button
+        android:id="@+id/btn_attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="500dp"
+        android:layout_marginTop="200dp"
+        android:text="Attack" />
+</RelativeLayout>
