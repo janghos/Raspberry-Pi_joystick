@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 downButton.setOnClickListener { sendCommand("S") }
                 leftButton.setOnClickListener { sendCommand("A") }
                 rightButton.setOnClickListener { sendCommand("D") }
-                spaceButton.setOnClickListener { sendCommand("T") }
+                spaceButton.setOnClickListener { sendCommand("U") }
             }else {
                 switchButton.text = "1P MODE"
                 upButton.setOnClickListener { sendCommand("up") }

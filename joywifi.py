@@ -56,10 +56,9 @@ def handle_command(command):
     elif command == "D":
         keyboard.press(Keycode.D)
         keyboard.release(Keycode.D)
-    elif command == "T":
-        print('T')
-        keyboard.press(Keycode.T)
-        keyboard.release(Keycode.T)
+    elif command == "U":
+        keyboard.press(Keycode.U)
+        keyboard.release(Keycode.U)
         
 
 buffer = bytearray(1024)  # 데이터를 저장할 버퍼
