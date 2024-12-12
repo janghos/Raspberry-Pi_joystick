@@ -2,6 +2,7 @@ package com.jangho.joyjoy
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
@@ -12,9 +13,11 @@ import java.net.Socket
 
 class MainActivity : AppCompatActivity() {
 
-    private val ESP32_IP = "172.20.10.3"  // ESP32 IP 주소 (Wi-Fi 연결 후 확인)
+    private val ESP32_IP = "172.20.10.3"  // ESP32 IP 주소
     private val PORT = 5000  // ESP32에서 사용하는 포트
     private var mIs1p = true
+    private val pressedKeys = mutableSetOf<String>()  // 누른 키들을 추적
+    private var lastDirectionKey: String? = null  // 마지막 눌린 방향 키
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,35 +29,78 @@ class MainActivity : AppCompatActivity() {
         val rightButton: Button = findViewById(R.id.btn_right)
         val spaceButton: Button = findViewById(R.id.btn_attack)
         val switchButton: Button = findViewById(R.id.btn_switch)
-        switchButton.setOnClickListener {
-            if(mIs1p){
-                switchButton.text = "2P MODE"
-                upButton.setOnClickListener { sendCommand("W") }
-                downButton.setOnClickListener { sendCommand("S") }
-                leftButton.setOnClickListener { sendCommand("A") }
-                rightButton.setOnClickListener { sendCommand("D") }
-                spaceButton.setOnClickListener { sendCommand("U") }
-            }else {
-                switchButton.text = "1P MODE"
-                upButton.setOnClickListener { sendCommand("up") }
-                downButton.setOnClickListener { sendCommand("down") }
-                leftButton.setOnClickListener { sendCommand("left") }
-                rightButton.setOnClickListener { sendCommand("right") }
-                spaceButton.setOnClickListener { sendCommand("space") }
+        val infiButton: Button = findViewById(R.id.btn_infinity)
+
+        fun setupTouchListener(button: Button, command: String) {
+            button.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // 만약 다른 화살표를 눌렀다면 이전 키 release하고 새 키 press
+                        if (lastDirectionKey != null && lastDirectionKey != command) {
+                            sendCommand("release_$lastDirectionKey")  // 이전 방향키 release
+                        }
+//                        if (!pressedKeys.contains(command)) {
+                            sendCommand("press_$command")  // 새로운 방향키 press
+                            pressedKeys.add(command)
+                            lastDirectionKey = command  // 마지막 방향키 저장
+//                        }
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        sendCommand("release_$command")  // 버튼을 뗐을 때 release 명령 전송
+                        pressedKeys.remove(command)
+                        if (command == lastDirectionKey) {
+                            lastDirectionKey = null  // 마지막 방향키 초기화
+                        }
+                    }
+                }
+                true  // 이벤트 처리 완료
             }
-            mIs1p = !mIs1p
         }
 
-        upButton.setOnClickListener { sendCommand("up") }
-        downButton.setOnClickListener { sendCommand("down") }
-        leftButton.setOnClickListener { sendCommand("left") }
-        rightButton.setOnClickListener { sendCommand("right") }
-        spaceButton.setOnClickListener { sendCommand("space") }
+        infiButton.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    sendCommand("press_T")
+                    pressedKeys.add("T")
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    sendCommand("release_T")
+                    pressedKeys.remove("T")
+                }
+            }
+            true
+        }
 
+        switchButton.text = "1P MODE"
+        setupTouchListener(upButton, "up")
+        setupTouchListener(downButton, "down")
+        setupTouchListener(leftButton, "left")
+        setupTouchListener(rightButton, "right")
+        setupTouchListener(spaceButton, "space")
+
+        switchButton.setOnClickListener {
+            if (mIs1p) {
+                switchButton.text = "2P MODE"
+                setupTouchListener(upButton, "W")
+                setupTouchListener(downButton, "S")
+                setupTouchListener(leftButton, "A")
+                setupTouchListener(rightButton, "D")
+                setupTouchListener(spaceButton, "U")
+            } else {
+                switchButton.text = "1P MODE"
+                setupTouchListener(upButton, "up")
+                setupTouchListener(downButton, "down")
+                setupTouchListener(leftButton, "left")
+                setupTouchListener(rightButton, "right")
+                setupTouchListener(spaceButton, "space")
+            }
+            mIs1p = !mIs1p
+
+        }
     }
 
     private fun sendCommand(command: String) {
-        Log.d("command", command.toString())
+        Log.d("command", command)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 // 소켓을 사용하여 ESP32에 연결
