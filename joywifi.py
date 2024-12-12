@@ -131,7 +131,7 @@ while True:
     conn, addr = server_socket.accept()
     print(f"Connected by {addr}")
 
-uuuaassddduuuuaaaaaaaaaaaaaaaadddddddddddddddddddwsssssssssaa    # 데이터 버퍼에 수신
+    # 데이터 버퍼에 수신
     bytes_received = conn.recv_into(buffer)
     if bytes_received:
         command = buffer[:bytes_received].decode("utf-8").strip()
