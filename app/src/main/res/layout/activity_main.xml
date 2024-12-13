@@ -16,10 +16,10 @@
     <!-- 위 버튼 (Up) -->
     <Button
         android:id="@+id/btn_up"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="100dp"
         android:text="↑" />
 
     <!-- 왼쪽, 아래, 오른쪽 버튼을 포함한 LinearLayout -->
@@ -32,20 +32,21 @@
 
         <Button
             android:id="@+id/btn_left"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:text="←"/>
 
         <Button
+            android:layout_marginTop="70dp"
             android:id="@+id/btn_down"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:text="↓" />
 
         <Button
             android:id="@+id/btn_right"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:text="→" />
     </LinearLayout>
 

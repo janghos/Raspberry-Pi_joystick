@@ -40,57 +40,62 @@ def handle_command(command):
         keyboard.press(Keycode.UP_ARROW)  # 화살표 위
         pressed_keys.add("up")
         print("Pressed up arrow")
-        time.sleep(0.1)
+       # time.sleep(0.1)
     elif command == "press_down" and "down" not in pressed_keys:
         keyboard.press(Keycode.DOWN_ARROW)  # 화살표 아래
         pressed_keys.add("down")
         print("Pressed down arrow")
-        time.sleep(0.1)
+       # time.sleep(0.1)
     elif command == "press_left" and "left" not in pressed_keys:
         keyboard.press(Keycode.LEFT_ARROW)  # 화살표 왼쪽
         pressed_keys.add("left")
         print("Pressed left arrow")
-        time.sleep(0.1)
+       # time.sleep(0.1)
     elif command == "press_right" and "right" not in pressed_keys:
         keyboard.press(Keycode.RIGHT_ARROW)  # 화살표 오른쪽
         pressed_keys.add("right")
         print("Pressed right arrow")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     elif command == "press_space" and "space" not in pressed_keys:
         keyboard.press(Keycode.SPACE)  # 스페이스바
         pressed_keys.add("space")
         print("Pressed space")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     elif command == "press_W" and "W" not in pressed_keys:
         keyboard.press(Keycode.W)  # W
         pressed_keys.add("W")
         print("Pressed W")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     elif command == "press_A" and "A" not in pressed_keys:
         keyboard.press(Keycode.A)  # A
         pressed_keys.add("A")
         print("Pressed A")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     elif command == "press_S" and "S" not in pressed_keys:
         keyboard.press(Keycode.S)  # S
         pressed_keys.add("S")
         print("Pressed S")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     elif command == "press_D" and "D" not in pressed_keys:
         keyboard.press(Keycode.D)  # D
         pressed_keys.add("D")
         print("Pressed D")
-        time.sleep(0.1)
+        #time.sleep(0.1)
     elif command == "press_T" and "T" not in pressed_keys:
         keyboard.press(Keycode.T)  # T
         pressed_keys.add("T")
         print("Pressed T")
-        time.sleep(0.1)
+        #time.sleep(0.1)
+    elif command == "press_P" and "P" not in pressed_keys:
+        keyboard.press(Keycode.P)  # P
+        pressed_keys.add("P")
+        print("Pressed P")
+        #time.sleep(0.1)
     elif command == "press_U" and "U" not in pressed_keys:
         keyboard.press(Keycode.U)  # U
         pressed_keys.add("U")
         print("Pressed U")
-        time.sleep(0.1)
+        #time.sleep(0.1)
 
     # release 처리
     elif command.startswith("release_"):
@@ -119,10 +124,12 @@ def handle_command(command):
                 keyboard.release(Keycode.T)  # T 해제
             elif key == "U":
                 keyboard.release(Keycode.U)  # U 해제
+            elif key == "P":
+                keyboard.release(Keycode.P)  #  해제
 
             pressed_keys.remove(key)
             print(f"Released {key}")
-            time.sleep(0.1)  # 키 해제 후 약간의 지연을 두기
+            #time.sleep(0.1)  # 키 해제 후 약간의 지연을 두기
 
 buffer = bytearray(1024)  # 데이터를 저장할 버퍼
 
